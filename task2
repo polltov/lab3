@@ -1,0 +1,42 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+from tqdm import tqdm
+#Функция подбрасывания монеты
+
+#0 --> Орел
+#1 --> Решка
+
+def coin_flip():
+    return random.randint(0,1)
+#Проверка полученного значения
+coin_flip()
+
+list1 = []
+
+
+def monte_carlo(n):
+    results = 0
+    for _ in tqdm(range(n)):
+        flip_result = coin_flip()
+        results = results + flip_result
+
+        # Высчитывание возможных значений
+        prob_value = results / (_ + 1)
+
+        # Включение возможных значений в список
+        list1.append(prob_value)
+
+        # Вывод результата в график
+        plt.axhline(y=0.5, color='r', linestyle='-')
+        plt.xlabel("Итераций")
+        plt.ylabel("Вероятность")
+        plt.plot(list1)
+
+    return results / n
+
+#Вызов главной функции
+
+answer = monte_carlo(1000)
+print("Финальные значения: ", answer)
+plt.show()
